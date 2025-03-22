@@ -30,7 +30,7 @@ def analyze_code_with_memory(file_path):
     # Construct a prompt for Gemini that includes both the code and the memory metrics.
     prompt = f"""
         You are an expert software engineer. Analyze the following Python code for memory management issues such as leaks or inefficient usage. Use the provided memory metrics to support your analysis, and suggest possible optimizations.
-        Also make the response consise and a max of 250 words per file and do not print the file in the response.
+        Also make the response consise and a max of 150 words per file and do not print the file in the response.
 
         Memory Metrics:
         {memory_report}
@@ -49,11 +49,11 @@ def analyze_code_with_gemini(file_path):
         print(f"Error reading {file_path}: {e}")
         return None
 
-    # Construct the prompt to ask Gemini for an analysis
     prompt = f"""
     You are an expert software engineer. Analyze the time and space complexity of the following Python code.
     Explain your reasoning step by step, and suggest any possible optimizations if applicable. Also make the
-    responses consise and a max of 300 words per file and do not print the file in the response.
+    responses consise and a max of 150 words per file and do not print the file in the response. Can you make 
+    a table view of this with all classes seperated by 2 white lines with each function seperated by one line.
 
     ```python
     {code}
@@ -78,8 +78,8 @@ def analyze_repo_performance(repo_path):
 
 if __name__ == "__main__":
     repo_path = '.'
-    performance_data = analyze_code_with_gemini("./example.py")
-    memory_data = analyze_code_with_memory("./example.py")
+    performance_data = analyze_code_with_gemini("./solution.py")
+    memory_data = analyze_code_with_memory("./solution.py")
     
     print(performance_data)
     print("MEMORY INFO")
