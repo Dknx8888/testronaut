@@ -15,32 +15,33 @@ def measure_memory_usage(file_path):
     return current, peak
 
 
-def analyze_code_with_memory(file_path):
-    try:
-        with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:
-            code = f.read()
-    except Exception as e:
-        print(f"Error reading {file_path}: {e}")
-        return None
+# def analyze_code_with_memory(file_path):
+#     try:
+#         with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:
+#             code = f.read()
+#     except Exception as e:
+#         print(f"Error reading {file_path}: {e}")
+#         return None
 
-    # Measure memory usage by running the file without altering it.
-    current, peak = measure_memory_usage(file_path)
-    memory_report = f"Current memory usage: {current/1024:.2f} KB\nPeak memory usage: {peak/1024:.2f} KB"
+#     # Measure memory usage by running the file without altering it.
+#     current, peak = measure_memory_usage(file_path)
+#     memory_report = f"Current memory usage: {current/1024:.2f} KB\nPeak memory usage: {peak/1024:.2f} KB"
 
-    # Construct a prompt for Gemini that includes both the code and the memory metrics.
-    prompt = f"""
-        You are an expert software engineer. Analyze the following Python code for memory management issues such as leaks or inefficient usage. Use the provided memory metrics to support your analysis, and suggest possible optimizations.
-        Also make the response consise and a max of 150 words per file and do not print the file in the response.
+#     # Construct a prompt for Gemini that includes both the code and the memory metrics.
+#     prompt = f"""
+#         You are an expert software engineer. Analyze the following Python code for memory management issues such as leaks or inefficient usage. Use the provided memory metrics to support your analysis, and suggest possible optimizations.
+#         Also make the response consise and a max of 150 words per file and do not print the file in the response.
 
-        Memory Metrics:
-        {memory_report}
+#         Memory Metrics:
+#         {memory_report}
 
-        Code:
-        ```python
-        {code}
-        """
-    analysis = get_gemini_response(prompt)
-    return analysis
+#         Code:
+#         ```python
+#         {code}
+#         """
+#     analysis = get_gemini_response(prompt)
+#     return analysis
+
 def analyze_code_with_gemini(file_path):
     try:
         with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:
@@ -50,12 +51,28 @@ def analyze_code_with_gemini(file_path):
         return None
 
     prompt = f"""
-    You are an expert software engineer. Analyze the time and space complexity of the following Python code.
-    Explain your reasoning step by step, and suggest any possible optimizations if applicable. Also make the
-    responses consise and a max of 150 words per file and do not print the file in the response. Can you make 
-    a table view of this with all classes seperated by 2 white lines with each function seperated by one line.
+    You are an expert software engineer. Analyze the time and space complexity of the following Python code, and format
+    the results like this:
+    
+    ┌──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+    │               Classes               │               Functions               │ Time Complexity │ Space Complexity │
+    ├──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+    │             Book                    │              readBook                 │     O(1)        │       O(n)       │
+    │                                     │              getTitle                 │     O(1)        │       O(1)       │
+    │                                     │              setAuthor                │     O(1)        │       O(1)       │
+    ├──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+    │             Library                 │              addBook                  │     O(1)        │       O(1)       │
+    │                                     │              removeBook               │     O(n)        │       O(1)       │
+    │                                     │              findBookByTitle          │     O(n)        │       O(1)       │
+    ├──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+    │             Reader                  │              borrowBook               │     O(1)        │       O(1)       │
+    │                                     │              returnBook               │     O(1)        │       O(1)       │
+    │                                     │              listBorrowedBooks        │     O(n)        │       O(n)       │
+    └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 
-    ```python
+    All box text contents have to be in the middle of the box. DO NOT SAY ANYTHING ELSE BESIDES OUTPUTTING THIS BOX.
+    
+    
     {code}
     """
     
@@ -79,8 +96,8 @@ def analyze_repo_performance(repo_path):
 if __name__ == "__main__":
     repo_path = '.'
     performance_data = analyze_code_with_gemini("./solution.py")
-    memory_data = analyze_code_with_memory("./solution.py")
+    #memory_data = analyze_code_with_memory("./solution.py")
     
     print(performance_data)
-    print("MEMORY INFO")
-    print(memory_data)
+    #print("MEMORY INFO")
+    #print(memory_data)
