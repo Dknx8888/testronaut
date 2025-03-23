@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='testronaut',
-    version='0.1.16',
+    version='0.1.19',
     description='A CLI tool that bridges code analytics, automated test generation, and smart CI/CD optimization—so your dev workflow scales with your codebase.',
     author='Siddarth Satish',
     author_email='saladguy12@gmail.com',
