@@ -69,10 +69,10 @@ async function welcome() {
 
     terminal.green('-------------------------------------------------------\n')
     terminal.slowTyping(
-        `A CLI tool that bridges code analytics, automated test generation, and smart CI/CD optimization—so your dev workflow scales with your codebase.`,
+        `A CLI tool that bridges code analytics, automated test \ngeneration, and smart CI/CD optimization—so your dev \nworkflow scales with your codebase.`,
         {
             flashStyle: terminal.brightWhite,
-            delay: 50
+            delay: 30
         },
         function() {
             
