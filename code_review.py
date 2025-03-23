@@ -1,3 +1,4 @@
+import sys
 import click
 from analyzer import analyze_file
 from gemini_api import get_gemini_response
