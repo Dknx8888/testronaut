@@ -2,8 +2,8 @@ from setuptools import setup, find_packages
 
 setup(
     name='testronaut',
-    version='0.1.7',
-    description='Grizzly7: Rizz your CI/CD with AI-powered test generation, code review, and refactoring tools.',
+    version='0.1.16',
+    description='A CLI tool that bridges code analytics, automated test generation, and smart CI/CD optimization—so your dev workflow scales with your codebase.',
     author='Siddarth Satish',
     author_email='saladguy12@gmail.com',
     url='https://github.com/Dknx8888/grizzy7', 

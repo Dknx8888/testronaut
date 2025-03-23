@@ -24,18 +24,18 @@ let RIZZ_ART = `
 const sleep_rainbow = (ms = 2000) => new Promise((r) => setTimeout(r, ms));
 
 // Define functions for each option
-function buildTestCases(path) {
-    console.log('\n\n')
-    const spinner = ora('Building test cases...\n').start();
+function buildTestCases(flag, path) {
+  console.log('\n\n');
+  const spinner = ora('Building test cases...\n').start();
   
-    buildTestCasesPy(path)
-      .then(() => {
-        console.log('\n')
-        spinner.succeed('Analysis complete!');
-      })
-      .catch(err => {
-        spinner.fail(`\nAnalysis failed: ${err.message}`);
-      });
+  return buildTestCasesPy(flag, path)
+    .then(() => {
+      console.log('\n');
+      spinner.succeed('Analysis complete!');
+    })
+     .catch(err => {
+      spinner.fail(`\nAnalysis failed: ${err.message}`);
+    });
 }
 
 function codePerformance(path) {
@@ -53,14 +53,18 @@ function codePerformance(path) {
 }
 
 
-function createDocumentation() {
-    terminal.blue("\nl\n");
+function pipeoptimize() {
+  question();
 }
 
-function refactorCode() {
-    terminal.yellow("\nExiting program...\n");
-    process.exit();
-}
+// function createDocumentation() {
+//     terminal.blue("\nl\n");
+// }
+
+// function refactorCode() {
+//     terminal.yellow("\nExiting program...\n");
+//     process.exit();
+// }
 
 
 async function welcome() {
@@ -72,7 +76,7 @@ async function welcome() {
 
     terminal.green('-------------------------------------------------------\n')
     terminal.slowTyping(
-        `Rizz your code up with our tools!`,
+        `A CLI tool that bridges code analytics, automated test \ngeneration, and smart CI/CD optimization—so your dev \nworkflow scales with your codebase.`,
         {
             flashStyle: terminal.brightWhite,
             delay: 50
@@ -123,21 +127,20 @@ function displayMenu() {
           function (error, response) {
             switch (response.selectedIndex) {
               case 0:
-                buildTestCases(path);
+                buildTestCases(false, path);
                 break;
               case 1:
                 codePerformance(path);
                 break;
               case 2:
-                createDocumentation();
+                buildTestCases(true, path);
                 break;
               case 3:
-                refactorCode();
+                pipeoptimize();
                 break;
               default:
                 terminal.red("\nInvalid\n");
             }
-            terminal.grabInput(false);
           }
         );
       }
