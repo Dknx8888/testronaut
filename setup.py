@@ -6,8 +6,8 @@ with open("README.md", "r", encoding="utf-8") as f:
 
 setup(
     name='testronaut',
-    version='0.1.7',
-    description='Grizzly7: Rizz your CI/CD with AI-powered test generation, code review, and refactoring tools.',
+    version='1.0.1',
+    description='A CLI tool that bridges code analytics, automated test generation, and smart CI/CD optimization—so your dev workflow scales with your codebase.',
     long_description=long_description,
     long_description_content_type="text/markdown",  # 👈 Very important for markdown formatting
     author='Siddarth Satish',
