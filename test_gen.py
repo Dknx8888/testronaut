@@ -53,7 +53,7 @@ def diff_test_cases():
 
     with open("test_cases_git_diff.py", "w") as f:
         for line in response.split("\n"):
-            if line == "```" or line == "```python":
+            if "```" in line:
                 continue
             else:
                 f.write(line + "\n")
