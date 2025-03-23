@@ -93,11 +93,8 @@ function displayMenu() {
           return;
         }
   
-        let path = input;
-
-        if (path.trim() === "") {
-            path = process.cwd()
-        };
+        let path = process.cwd();
+        path += '/' + input;
 
         terminal.red(`\nThe chosen path: ${path}`);
   
@@ -108,7 +105,7 @@ function displayMenu() {
             'Build Test Cases',
             'Display Code Performance',
             'Test Recent Changes',
-            'Refactor Code'
+            'Optimize Pipeline'
         ];
   
         terminal.gridMenu(

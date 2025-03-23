@@ -3,10 +3,7 @@ from gemini_api import get_gemini_response
 import tracemalloc
 import runpy
 import sys
-<<<<<<< HEAD
-=======
 import ast
->>>>>>> main
 
 
 def measure_memory_usage(file_path):
@@ -122,5 +119,8 @@ def analyze_file(filename):
 
 if __name__ == "__main__":
     repo_path = sys.argv[1]
-    performance_data = analyze_repo_performance(repo_path)    
+    if repo_path.endswith(".py"):
+        performance_data = analyze_code_with_gemini(repo_path)
+    else:
+        performance_data = analyze_repo_performance(repo_path)    
     print(performance_data)
