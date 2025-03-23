@@ -29,7 +29,7 @@ def test_cases(file):
         test_cases_file_name = f"test_cases_{os.path.splitext(os.path.basename(input_file))[0]}.py"
         with open(os.path.join(folder, test_cases_file_name), "w") as f:
             for line in response.split("\n"):
-                if line == "```" or line == "```python":
+                if "```" in line:
                     continue
                 else:
                     f.write(line + "\n")
