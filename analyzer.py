@@ -3,7 +3,10 @@ from gemini_api import get_gemini_response
 import tracemalloc
 import runpy
 import sys
+<<<<<<< HEAD
+=======
 import ast
+>>>>>>> main
 
 
 def measure_memory_usage(file_path):
