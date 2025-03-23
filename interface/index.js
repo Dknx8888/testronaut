@@ -23,24 +23,26 @@ let RIZZ_ART = `
 
 const sleep_rainbow = (ms = 2000) => new Promise((r) => setTimeout(r, ms));
 
+
 // Define functions for each option
-function buildTestCases(path) {
-    console.log('\n\n')
-    const spinner = ora('Building test cases...\n').start();
+function buildTestCases(flag, path) {
+  console.log('\n\n');
+  const spinner = ora('Building test cases...\n').start();
   
-    buildTestCasesPy(path)
-      .then(() => {
-        console.log('\n')
-        spinner.succeed('Analysis complete!');
-      })
-      .catch(err => {
-        spinner.fail(`\nAnalysis failed: ${err.message}`);
-      });
+  return buildTestCasesPy(flag, path)
+    .then(() => {
+      console.log('\n');
+      spinner.succeed('Analysis complete!');
+    })
+     .catch(err => {
+      spinner.fail(`\nAnalysis failed: ${err.message}`);
+    });
 }
 
 function codePerformance(path) {
   console.log('\n\n')
   const spinner = ora('Analyzing code performance...\n').start();
+
 
   finalDisplay(path)
     .then(() => {
@@ -50,11 +52,6 @@ function codePerformance(path) {
     .catch(err => {
       spinner.fail(`\nAnalysis failed: ${err.message}`);
     });
-}
-
-
-function createDocumentation() {
-    terminal.blue("\nl\n");
 }
 
 function refactorCode() {
@@ -102,7 +99,7 @@ function displayMenu() {
             path = process.cwd()
         };
 
-        terminal.red(`The chosen path: ${path}`);
+        terminal.red(`\nThe chosen path: ${path}`);
   
         terminal.cyan('\n\nChoose an option:');
         terminal.grabInput({ mouse: 'button' });
@@ -110,7 +107,7 @@ function displayMenu() {
         let options = [
             'Build Test Cases',
             'Display Code Performance',
-            'Create Documentation',
+            'Test Recent Changes',
             'Refactor Code'
         ];
   
@@ -123,13 +120,13 @@ function displayMenu() {
           function (error, response) {
             switch (response.selectedIndex) {
               case 0:
-                buildTestCases(path);
+                buildTestCases(true, path);
                 break;
               case 1:
                 codePerformance(path);
                 break;
               case 2:
-                createDocumentation();
+                buildTestCases(false, path);
                 break;
               case 3:
                 refactorCode();
