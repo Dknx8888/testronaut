@@ -7,3 +7,4 @@ interface/node_modules
 dist/
 testronaut-0.1.2/
 testronaut.egg-info/
+testenv/
