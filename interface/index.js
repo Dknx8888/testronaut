@@ -120,13 +120,13 @@ function displayMenu() {
           function (error, response) {
             switch (response.selectedIndex) {
               case 0:
-                buildTestCases(true, path);
+                buildTestCases(false, path);
                 break;
               case 1:
                 codePerformance(path);
                 break;
               case 2:
-                buildTestCases(false, path);
+                buildTestCases(true, path);
                 break;
               case 3:
                 refactorCode();
