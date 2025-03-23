@@ -1,0 +1,24 @@
+Metadata-Version: 2.4
+Name: testronaut
+Version: 0.1.19
+Summary: A CLI tool that bridges code analytics, automated test generation, and smart CI/CD optimization—so your dev workflow scales with your codebase.
+Home-page: https://github.com/Dknx8888/grizzy7
+Author: Siddarth Satish
+Author-email: saladguy12@gmail.com
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.8
+Requires-Dist: click
+Requires-Dist: python-dotenv
+Requires-Dist: requests
+Requires-Dist: memory_profiler
+Requires-Dist: google-genai
+Requires-Dist: protobuf
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: home-page
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
