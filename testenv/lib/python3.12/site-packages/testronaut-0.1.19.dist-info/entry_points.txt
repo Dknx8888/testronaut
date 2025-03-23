@@ -1,0 +1,2 @@
+[console_scripts]
+testronaut = interface.cli:main

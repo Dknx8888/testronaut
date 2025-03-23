@@ -1,12 +1,18 @@
 from setuptools import setup, find_packages
 
+# Read README.md for long description
+with open("README.md", "r", encoding="utf-8") as f:
+    long_description = f.read()
+
 setup(
     name='testronaut',
-    version='0.1.19',
-    description='A CLI tool that bridges code analytics, automated test generation, and smart CI/CD optimization—so your dev workflow scales with your codebase.',
+    version='0.1.7',
+    description='Grizzly7: Rizz your CI/CD with AI-powered test generation, code review, and refactoring tools.',
+    long_description=long_description,
+    long_description_content_type="text/markdown",  # 👈 Very important for markdown formatting
     author='Siddarth Satish',
     author_email='saladguy12@gmail.com',
-    url='https://github.com/Dknx8888/grizzy7', 
+    url='https://github.com/Dknx8888/grizzy7',
     packages=find_packages(include=['interface', 'interface.*']),
     install_requires=[
         'click',
@@ -15,20 +21,16 @@ setup(
         'memory_profiler',
         'google-genai',
         'protobuf'
-        # Include any additional Python packages your CLI needs
     ],
     entry_points={
-    'console_scripts': [
-        'testronaut=interface.cli:main',
-    ]
+        'console_scripts': [
+            'testronaut=interface.cli:main',
+        ]
     },
-    include_package_data=True,  # Ensures non-Python files (like .js assets) are included.
-    # package_data={
-    #     "interface": ["index.mjs", "package.json", "*.js"]
-    # },
+    include_package_data=True,
     classifiers=[
         'Programming Language :: Python :: 3',
-        'License :: OSI Approved :: MIT License',  # Update if you choose a different license.
+        'License :: OSI Approved :: MIT License',
         'Operating System :: OS Independent',
     ],
     python_requires='>=3.8',
