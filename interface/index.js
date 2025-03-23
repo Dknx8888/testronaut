@@ -8,9 +8,11 @@ import figlet from "figlet";
 import { createSpinner } from "nanospinner";
 import { finalDisplay } from "./analyzeOutput.js";
 import { buildTestCasesPy } from "./buildTestCases.js";
+import { question } from "./pipeoptimizer.js";
 import pkg from "terminal-kit";
 const { terminal } = pkg;
 import ora from 'ora';
+import { exit } from "process";
 
 
 let RIZZ_ART = `
@@ -43,7 +45,6 @@ function codePerformance(path) {
   console.log('\n\n')
   const spinner = ora('Analyzing code performance...\n').start();
 
-
   finalDisplay(path)
     .then(() => {
       console.log('\n')
@@ -54,9 +55,8 @@ function codePerformance(path) {
     });
 }
 
-function refactorCode() {
-    terminal.yellow("\nExiting program...\n");
-    process.exit();
+function pipeoptimize() {
+    question();
 }
 
 
@@ -96,7 +96,8 @@ function displayMenu() {
         let path = process.cwd();
         path += '/' + input;
 
-        terminal.red(`\nThe chosen path: ${path}`);
+        terminal.red(`\nThe chosen path: ${path}`
+        );
   
         terminal.cyan('\n\nChoose an option:');
         terminal.grabInput({ mouse: 'button' });
@@ -126,12 +127,11 @@ function displayMenu() {
                 buildTestCases(true, path);
                 break;
               case 3:
-                refactorCode();
+                pipeoptimize();
                 break;
               default:
                 terminal.red("\nInvalid\n");
             }
-            terminal.grabInput(false);
           }
         );
       }

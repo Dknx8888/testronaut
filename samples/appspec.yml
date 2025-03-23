@@ -1,0 +1,18 @@
+files:
+- destination: /web/
+  source: /
+hooks:
+  AfterInstall:
+  - location: scripts/mkdir.sh
+    runas: root
+    timeout: 300
+  ApplicationStart:
+  - location: scripts/start_flask.sh
+    runas: root
+    timeout: 300
+  ApplicationStop:
+  - location: scripts/stop_flask1.sh
+    runas: root
+    timeout: 300
+os: linux
+version: 0.0

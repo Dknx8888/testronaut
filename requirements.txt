@@ -3,3 +3,5 @@ google-genai~=1.7.0
 protobuf~=5.28.2
 click==8.1.7
 setuptools
+click
+pyyaml
