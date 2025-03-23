@@ -6,30 +6,41 @@ import gradient from "gradient-string";
 import chalkAnimation from "chalk-animation";
 import figlet from "figlet";
 import { createSpinner } from "nanospinner";
+import { finalDisplay } from "./analyzeOutput.js";
 import pkg from "terminal-kit";
 const { terminal } = pkg;
+import ora from 'ora';
+
 
 let RIZZ_ART = `
-    ____  _         ______            __    
-   / __ \\(_)_______/_  __/___  ____  / /____
-  / /_/ / /_  /_  / / / / __ \\/ __ \\/ / ___/
- / _, _/ / / /_/ /_/ / / /_/ / /_/ / (__  ) 
-/_/ |_/_/ /___/___/_/  \\____/\\____/_/____/
+  ______          __                               __
+ /_  __/__  _____/ /__________  ____  ____ ___  __/ /_
+  / / / _ \\/ ___/ __/ ___/ __ \\/ __ \\/ __ \`/ / / / __/
+ / / /  __(__  ) /_/ /  / /_/ / / / / /_/ / /_/ / /_
+/_/  \\___/____/\\__/_/   \\____/_/ /_/\\__,_/\\__,_/\\__/ 
 `;
 
 const sleep_rainbow = (ms = 2000) => new Promise((r) => setTimeout(r, ms));
-const sleep_slow = (ms = 8000) => new Promise((r) => setTimeout(r, ms));
 
 // Define functions for each option
 function buildTestCases() {
     console.table(["apples", "oranges", "bananas"])
-    // ... additional logic for option one ...
 }
 
-function codeReview() {
-    terminal.green("\nFunction Two executed!\n");
-    // ... additional logic for option two ...
+function codePerformance() {
+  console.log('\n\n')
+  const spinner = ora('Analyzing code performance...\n').start();
+
+  finalDisplay()
+    .then(() => {
+      console.log('\n')
+      spinner.succeed('Analysis complete!');
+    })
+    .catch(err => {
+      spinner.fail(`\nAnalysis failed: ${err.message}`);
+    });
 }
+
 
 function createDocumentation() {
     terminal.blue("\nl\n");
@@ -48,7 +59,7 @@ async function welcome() {
     await sleep_rainbow();
     rainbowTitle.stop();
 
-    terminal.green('---------------------------------------------\n')
+    terminal.green('-------------------------------------------------------\n')
     terminal.slowTyping(
         `Rizz your code up with our tools!`,
         {
@@ -64,7 +75,7 @@ function displayMenu() {
 
     let options = [
         'Build Test Cases',
-        'Code Review',
+        'Display Code Performance',
         'Create Documentation',
         'Refactor Code'
     ]
@@ -82,7 +93,7 @@ function displayMenu() {
                     buildTestCases();
                     break;
                 case 1:
-                    codeReview();
+                    codePerformance();
                     break;
                 case 2:
                     createDocumentation();
@@ -96,7 +107,5 @@ function displayMenu() {
             terminal.grabInput(false);
     });
 }
-
-
 
 await welcome();

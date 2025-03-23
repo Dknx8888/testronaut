@@ -51,26 +51,23 @@ def analyze_code_with_gemini(file_path):
         return None
 
     prompt = f"""
-    You are an expert software engineer. Analyze the time and space complexity of the following Python code, and format
+    Analyze the time and space complexity of the following Python code, and format
     the results like this:
     
-    ┌──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-    │               Classes               │               Functions               │ Time Complexity │ Space Complexity │
-    ├──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
-    │             Book                    │              readBook                 │     O(1)        │       O(n)       │
-    │                                     │              getTitle                 │     O(1)        │       O(1)       │
-    │                                     │              setAuthor                │     O(1)        │       O(1)       │
-    ├──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
-    │             Library                 │              addBook                  │     O(1)        │       O(1)       │
-    │                                     │              removeBook               │     O(n)        │       O(1)       │
-    │                                     │              findBookByTitle          │     O(n)        │       O(1)       │
-    ├──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
-    │             Reader                  │              borrowBook               │     O(1)        │       O(1)       │
-    │                                     │              returnBook               │     O(1)        │       O(1)       │
-    │                                     │              listBorrowedBooks        │     O(n)        │       O(n)       │
-    └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+    Class User:
+    login - t: O(1) - s: O(1)
+    updateProfile - t: O(n) - s: O(n)
 
-    All box text contents have to be in the middle of the box. DO NOT SAY ANYTHING ELSE BESIDES OUTPUTTING THIS BOX.
+    Class Post:
+    createPost - t: O(1) - s: O(n)
+    deletePost - t: O(n) - s: O(1)
+    likePost - t: O(1) - s: O(1)
+
+    Class Feed:
+    generateFeed - t: O(n log n) - s: O(n)
+    refreshFeed - t: O(n) - s: O(n)
+
+    The result has to be always like this. DO NOT SAY ANYTHING ELSE BESIDES OUTPUTTING THIS RESULT TEXT.
     
     
     {code}
@@ -92,3 +89,12 @@ def analyze_repo_performance(repo_path):
                 if analysis:
                     results.append(analysis)
     return results
+
+if __name__ == "__main__":
+    repo_path = '.'
+    performance_data = analyze_code_with_gemini("./solution.py")
+    #memory_data = analyze_code_with_memory("./solution.py")
+    
+    print(performance_data)
+    #print("MEMORY INFO")
+    #print(memory_data)
