@@ -69,7 +69,7 @@ async function welcome() {
 
     terminal.green('-------------------------------------------------------\n')
     terminal.slowTyping(
-        `Rizz your code up with our tools!`,
+        `A CLI tool that bridges code analytics, automated test generation, and smart CI/CD optimization—so your dev workflow scales with your codebase.`,
         {
             flashStyle: terminal.brightWhite,
             delay: 50
