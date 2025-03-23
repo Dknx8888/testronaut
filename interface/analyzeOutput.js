@@ -3,8 +3,8 @@ import terminalKit from 'terminal-kit';
 
 const term = terminalKit.terminal;
 
-function analyzeOutput(callback) {
-  exec('python3 analyzer.py', (error, stdout, stderr) => {
+function analyzeOutput(path, callback) {
+  exec(`python3 analyzer.py ${path}`, (error, stdout, stderr) => {
     if (error) {
       console.error('Error running python script:', error);
       return;
@@ -84,9 +84,9 @@ function displayMetrics(metrics) {
   });
 }
 
-export function finalDisplay() {
+export function finalDisplay(path) {
   return new Promise((resolve, reject) => {
-    analyzeOutput((result) => {
+    analyzeOutput(path, (result) => {
       try {
         displayMetrics(result);
         resolve();

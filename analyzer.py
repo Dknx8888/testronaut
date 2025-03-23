@@ -2,6 +2,11 @@ import os
 from gemini_api import get_gemini_response
 import tracemalloc
 import runpy
+import sys
+<<<<<<< HEAD
+=======
+import ast
+>>>>>>> main
 
 
 def measure_memory_usage(file_path):
@@ -77,7 +82,7 @@ def analyze_code_with_gemini(file_path):
     return analysis
 
 def analyze_repo_performance(repo_path):
-    results = []
+    results = ""
     for root, dirs, files in os.walk(repo_path):
         # Skip directories that are unlikely to contain source code
         if any(skip in root for skip in ['.git', 'node_modules', '__pycache__', 'venv', '.gitignore', 'analyzer.py', 'gemini_api.py']):
@@ -87,14 +92,35 @@ def analyze_repo_performance(repo_path):
                 file_path = os.path.join(root, filename)
                 analysis = analyze_code_with_gemini(file_path)
                 if analysis:
-                    results.append(analysis)
+                    results += analysis
     return results
 
+
+class CodeAnalyzer(ast.NodeVisitor):
+    def __init__(self, source_code):
+        self.functions = []
+        self.classes = []
+        self.source_code = source_code
+
+    def visit_FunctionDef(self, node):
+        snippet = ast.get_source_segment(self.source_code, node)
+        self.functions.append((node.name, snippet))
+        self.generic_visit(node)
+
+    def visit_ClassDef(self, node):
+        snippet = ast.get_source_segment(self.source_code, node)
+        self.classes.append((node.name, snippet))
+        self.generic_visit(node)
+
+def analyze_file(filename):
+    with open(filename, "r", encoding="utf-8") as f:
+        source_code = f.read()
+    tree = ast.parse(source_code, filename)
+    analyzer = CodeAnalyzer(source_code)
+    analyzer.visit(tree)
+    return analyzer.functions, analyzer.classes
+
 if __name__ == "__main__":
-    repo_path = '.'
-    performance_data = analyze_code_with_gemini("./solution.py")
-    #memory_data = analyze_code_with_memory("./solution.py")
-    
+    repo_path = sys.argv[1]
+    performance_data = analyze_repo_performance(repo_path)    
     print(performance_data)
-    #print("MEMORY INFO")
-    #print(memory_data)

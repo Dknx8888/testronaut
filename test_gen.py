@@ -1,4 +1,5 @@
 import subprocess
+import sys
 import gemini_api
 import os
 
@@ -43,7 +44,7 @@ def test_cases(file):
         generate_tests(file)
 
 def diff_test_cases():
-    diff = subprocess.run('git diff', capture_output=True, text=True)
+    diff = subprocess.run(['git', 'diff'], capture_output=True, text=True)
 
     prompt = (f"Here is my current git diff, write me test cases. Make sure that all the differences are on the test cases. "
               f"Make sure that only one file is generated, and that file only has test cases."
@@ -59,3 +60,11 @@ def diff_test_cases():
                 f.write(line + "\n")
     print(f"Generated Test Cases on the most recent changes. Check the file test_cases_git_diff.py. "
           f"\nRemember to review the test cases before running them.")
+    
+if __name__ == "__main__":
+    low_token = sys.argv[1]
+    if low_token == "true":
+        output = diff_test_cases()
+    else:
+        output = test_cases(sys.argv[2])
+    print(output)
