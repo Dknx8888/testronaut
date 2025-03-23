@@ -3,3 +3,4 @@ __pycache__/
 .env
 .idea/
 test/
+interface/node_modules
