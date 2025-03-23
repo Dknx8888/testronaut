@@ -89,3 +89,12 @@ def analyze_repo_performance(repo_path):
                 if analysis:
                     results.append(analysis)
     return results
+
+if __name__ == "__main__":
+    repo_path = '.'
+    performance_data = analyze_code_with_gemini("./solution.py")
+    #memory_data = analyze_code_with_memory("./solution.py")
+    
+    print(performance_data)
+    #print("MEMORY INFO")
+    #print(memory_data)
