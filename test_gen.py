@@ -1,4 +1,5 @@
 import subprocess
+import sys
 import gemini_api
 import os
 
@@ -59,3 +60,11 @@ def diff_test_cases():
                 f.write(line + "\n")
     print(f"Generated Test Cases on the most recent changes. Check the file test_cases_git_diff.py. "
           f"\nRemember to review the test cases before running them.")
+    
+if __name__ == "__main__":
+    low_token = sys.argv[1][0].capitalize()
+    if low_token:
+        output = diff_test_cases()
+    else:
+        output = test_cases[sys.argv[2]]
+    print(output)

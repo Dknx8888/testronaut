@@ -7,6 +7,7 @@ import chalkAnimation from "chalk-animation";
 import figlet from "figlet";
 import { createSpinner } from "nanospinner";
 import { finalDisplay } from "./analyzeOutput.js";
+import { buildTestCasesPy } from "./buildTestCases.js";
 import pkg from "terminal-kit";
 const { terminal } = pkg;
 import ora from 'ora';
@@ -23,15 +24,25 @@ let RIZZ_ART = `
 const sleep_rainbow = (ms = 2000) => new Promise((r) => setTimeout(r, ms));
 
 // Define functions for each option
-function buildTestCases() {
-    console.table(["apples", "oranges", "bananas"])
+function buildTestCases(path) {
+    console.log('\n\n')
+    const spinner = ora('Building test cases...\n').start();
+  
+    buildTestCasesPy(path)
+      .then(() => {
+        console.log('\n')
+        spinner.succeed('Analysis complete!');
+      })
+      .catch(err => {
+        spinner.fail(`\nAnalysis failed: ${err.message}`);
+      });
 }
 
-function codePerformance() {
+function codePerformance(path) {
   console.log('\n\n')
   const spinner = ora('Analyzing code performance...\n').start();
 
-  finalDisplay()
+  finalDisplay(path)
     .then(() => {
       console.log('\n')
       spinner.succeed('Analysis complete!');
@@ -66,46 +77,72 @@ async function welcome() {
             flashStyle: terminal.brightWhite,
             delay: 50
         },
-        function() {displayMenu();}
+        function() {
+            
+            displayMenu();}
     );
 }
 
 function displayMenu() {
-    terminal.cyan('\n\nChoose an option:');
+    terminal.cyan("\n\nPlease input the path: ")
+    terminal.inputField(
+      {
+        echo: true,
+        prompt: 'Please input the path: '
+      },
+      function (error, input) {
+        if (error) {
+          terminal.red("\nError reading input\n");
+          return;
+        }
+  
+        let path = input;
 
-    let options = [
-        'Build Test Cases',
-        'Display Code Performance',
-        'Create Documentation',
-        'Refactor Code'
-    ]
+        if (path.trim() === "") {
+            path = process.cwd()
+        };
 
-    terminal.grabInput({mouse : 'button'});
-
-    terminal.gridMenu(options, 
-        {
+        terminal.red(`The chosen path: ${path}`);
+  
+        terminal.cyan('\n\nChoose an option:');
+        terminal.grabInput({ mouse: 'button' });
+  
+        let options = [
+            'Build Test Cases',
+            'Display Code Performance',
+            'Create Documentation',
+            'Refactor Code'
+        ];
+  
+        terminal.gridMenu(
+          options,
+          {
             width: 80,
             itemMaxWidth: 40
-        },
-        function(error, response) {
+          },
+          function (error, response) {
             switch (response.selectedIndex) {
-                case 0:
-                    buildTestCases();
-                    break;
-                case 1:
-                    codePerformance();
-                    break;
-                case 2:
-                    createDocumentation();
-                    break;
-                case 3:
-                    refactorCode();
-                    break;
-                default:
-                    terminal.red("\nInvalid\n");
+              case 0:
+                buildTestCases(path);
+                break;
+              case 1:
+                codePerformance(path);
+                break;
+              case 2:
+                createDocumentation();
+                break;
+              case 3:
+                refactorCode();
+                break;
+              default:
+                terminal.red("\nInvalid\n");
             }
             terminal.grabInput(false);
-    });
-}
+          }
+        );
+      }
+    );
+  }
+  
 
 await welcome();
