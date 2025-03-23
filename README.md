@@ -1,8 +1,4 @@
-Absolutely! Here's a polished and well-formatted **PyPI description** based on the content you provided — ready to drop into your `README.md` or `long_description` in `setup.py`:
-
----
-
-# 🚀 Testronaut
+# Testronaut
 
 **A CLI tool that bridges code analytics, automated test generation, and smart CI/CD optimization—so your dev workflow scales with your codebase.**
 
