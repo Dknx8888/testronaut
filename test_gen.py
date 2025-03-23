@@ -1,8 +1,4 @@
 import subprocess
-from http.client import responses
-
-from click import prompt
-
 import gemini_api
 import os
 
