@@ -16,16 +16,16 @@ As developers, we’re responsible for writing efficient, high-quality code — 
 
 Testronaut is a terminal-based CLI tool powered by Google Gemini, built to accelerate various parts of the software development lifecycle:
 
-- ✅ **Test Case Generation**  
+- **Test Case Generation**  
   Automatically generate unit tests and integration tests from source code.
 
-- 🚀 **Code Performance Analysis**  
+- **Code Performance Analysis**  
   Analyze performance bottlenecks and get suggestions for optimization.
 
-- 🧼 **Code Refactoring**  
+- **Code Refactoring**  
   Get clean, efficient refactoring suggestions to improve maintainability and readability.
 
-- 🔁 **CI/CD Pipeline Checks**  
+- **CI/CD Pipeline Checks**  
   Quickly validate your CI/CD configuration files for common issues and misconfigurations.
 
 ---
